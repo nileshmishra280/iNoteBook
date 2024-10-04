@@ -5,17 +5,22 @@ const AddNote = () => {
     const context = useContext(noteContext);
     const { addNote } = context;
 
-    const [note, setNote] = useState({ title: "", description: "", tag: "default" });
+    const [note, setNote] = useState({ title: "", description: "", tag: "" });
 
-    const onChange = (e) => {
-        setNote({ ...note, [e.target.name]: e.target.value });
-    };
-
+    
     const handleClick = (e) => {
         e.preventDefault();
+        // if (note.title.trim() === "" || note.description.trim() === "") {
+        //     alert("Title and Description cannot be empty!");
+        //     return;
+        // }
         addNote(note.title, note.description, note.tag);
-        setNote({ title: "", description: "" });
-    };
+        setNote({ title: "", description: "", tag: "" });
+    }
+    const onChange = (e) => {
+        setNote({ ...note, [e.target.name]: e.target.value });
+    }
+
 
     return (
         <div>

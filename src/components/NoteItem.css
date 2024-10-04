@@ -1,0 +1,110 @@
+/* NoteItem.css */
+
+.note-item-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .note-item-container {
+      width: 18rem;
+    }
+  }
+  
+  .note-card {
+    position: relative;
+    height: 100%;
+    background-color: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .note-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .note-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .note-item-container:hover .note-actions {
+    opacity: 1;
+  }
+  
+  .note-action-button {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .note-action-button:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .edit-button:hover {
+    color: #3b82f6;
+  }
+  
+  .delete-button:hover {
+    color: #ef4444;
+  }
+  
+  .note-content {
+    padding: 1.25rem;
+  }
+  
+  .note-title {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .note-description {
+    color: #4b5563;
+    line-height: 1.5;
+  }
+  
+  .gradient-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .note-card:hover .gradient-line {
+    transform: scaleX(1);
+  }
+  
+  /* Optional: Add animation for card deletion */
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+  }
+  
+  .note-delete-animation {
+    animation: fadeOut 0.3s ease forwards;
+  }

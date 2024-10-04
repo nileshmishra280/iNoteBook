@@ -3,32 +3,35 @@ import noteContext from "../context/notes/noteContext";
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 
+
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getAllNotes } = context;
+  const { notes,editNote,getAllNotes } = context;
 
   useEffect(() => {
     getAllNotes();
-  }, []);
+  }, [])
   
-  const [currentNote, setCurrentNote] = useState({ title: "", description: "", tag: "" });
-  const ref = useRef(null);
+  const ref = useRef(null)
+  const refClose = useRef(null)
+
+  const [note, setNote] = useState({ id:"",etitle: "", edescription: "", etag: "" });
+
 
   // Function to open the modal with the note's current details
-  const updateNote = (note) => {
-    setCurrentNote({title:currentNote.title , description: currentNote.description, tag: currentNote.tag});
-    ref.current.click(); // Programmatically click the hidden button to open the modal
-  };
+  const updateNote = (currentNote) => {
+    ref.current.click();
+    setNote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag:currentNote.tag})
+}
 
-  const onChange = (e) => {
-    setCurrentNote({ ...currentNote, [e.target.name]: e.target.value });
-  };
 
   const handleClick = (e) => {
-    e.preventDefault();
-    // Call the update function from context here
-    // For example: updateNoteInContext(currentNote._id, currentNote.title, currentNote.description, currentNote.tag);
-  };
+       editNote(note.id, note.etitle, note.edescription, note.etag)
+        refClose.current.click();
+  }
+  const onChange = (e)=>{
+    setNote({...note, [e.target.name]: e.target.value})
+}
 
   return (
     <>
@@ -56,7 +59,7 @@ const Notes = () => {
                     className="form-control"
                     id="updateNoteTitle"
                     name="title"
-                    value={currentNote.title}
+                    value={note.etitle}
                     onChange={onChange}
                     placeholder="Enter title"
                   />
@@ -67,7 +70,7 @@ const Notes = () => {
                     className="form-control"
                     id="updateNoteDescription"
                     name="description"
-                    value={currentNote.description}
+                    value={note.edescription}
                     onChange={onChange}
                     placeholder="Enter description"
                   />
@@ -79,20 +82,17 @@ const Notes = () => {
                     className="form-control"
                     id="updateNoteTag"
                     name="tag"
-                    value={currentNote.tag}
+                    value={note.etag}
                     onChange={onChange}
                     placeholder="Enter tag"
                   />
                 </div>
-
-                <button type="submit" onClick={handleClick} className="btn btn-primary">
-                  Save Changes
-                </button>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button disabled={note.etitle.length<5 || note.edescription.length<5} onClick={handleClick} type="button" className="btn btn-primary">Update Note</button>
+                        </div>
           </div>
         </div>
       </div>
